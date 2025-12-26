@@ -37,7 +37,6 @@
       background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35), transparent 40%), linear-gradient(180deg, #e53935, #b71c1c); 
       box-shadow: 0 6px 0 #7f1010, 0 10px 20px rgba(0, 0, 0, .35); 
       display: block;
-      /* Отступ снизу, чтобы не прилипало */
       margin: 0 auto 30px auto; 
     }
     .btn-ny:active { transform: translateY(3px); box-shadow: 0 3px 0 #7f1010; }
@@ -56,41 +55,18 @@
     
     #letter-screen { z-index: 9000; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); }
     
-    /* ИСПРАВЛЕННЫЙ СТИЛЬ ПИСЬМА */
     .letter-paper { 
       position: relative; 
       width: 90vw; max-width: 320px; 
       aspect-ratio: 9/14; 
       background-position: center; background-size: 100% 100%; background-repeat: no-repeat; 
-      /* Уменьшил верхний отступ, чтобы влез заголовок */
       padding: 60px 30px 20px 30px; 
       display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; 
       color: #3e2723; 
     }
     
-    /* Вернул заголовок и настроил отступы */
-    .letter-title { 
-      font-family: 'Montserrat', sans-serif; 
-      font-weight: 900; 
-      font-size: 22px; 
-      color: #b30000; 
-      text-transform: uppercase; 
-      margin-top: 15px;
-      margin-bottom: 5px; 
-      display: block; /* Показываем заголовок */
-    }
-    
-    .letter-body { 
-      font-family: 'Caveat', cursive; 
-      font-size: 24px; 
-      line-height: 1.3; 
-      font-weight: 700; 
-      margin-bottom: 10px; 
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-      justify-content: center; 
-    }
+    .letter-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; color: #b30000; text-transform: uppercase; margin-top: 15px; margin-bottom: 5px; display: block; }
+    .letter-body { font-family: 'Caveat', cursive; font-size: 24px; line-height: 1.3; font-weight: 700; margin-bottom: 10px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
     
     #char-screen, #story-screen, #tutorial-screen { z-index: 8000; background-size: cover; }
     #char-screen::before, #story-screen::before, #tutorial-screen::before { content: ''; position: absolute; inset: 0; background: rgba(0, 0, 0, 0.85); z-index: -1; backdrop-filter: blur(3px); }
@@ -122,7 +98,12 @@
     #story-btn.visible { opacity: 1; transform: translateY(0); }
 
     /* КАРТА */
-    #map { position: absolute; inset: 0; background-color: #000; background-size: cover; background-position: center; z-index: 1000; transition: 1s; }
+    #map { 
+        position: absolute; inset: 0; background-color: #000; 
+        background-size: 100% 100%; 
+        background-position: center; 
+        z-index: 1000; transition: 1s; 
+    }
     #map.lit { filter: brightness(1.2); }
     #hero { position: absolute; width: 100px; height: 100px; background-size: contain; background-repeat: no-repeat; background-position: center bottom; z-index: 30; transition: top 1s linear, left 1s linear; }
     #hero.walking { animation: walkBob .3s infinite alternate; }
@@ -130,7 +111,15 @@
     
     .zone { position: absolute; width: 100px; height: 100px; transform: translate(-50%, -50%); z-index: 10; cursor: pointer; }
     .marker { display: none; }
-    .house-sprite { position: absolute; background: none center/contain no-repeat; pointer-events: none; opacity: 0; transition: opacity .35s; z-index: 9; width: 140px; height: 140px; left: 50%; top: 50%; transform: translate(-50%, -50%); }
+    
+    .house-sprite { 
+        position: absolute; 
+        background: none center/contain no-repeat; 
+        pointer-events: none; 
+        opacity: 0; 
+        transition: opacity .35s; 
+        z-index: 9; 
+    }
     .zone.done .house-sprite { opacity: 1; }
     
     #hud { position: absolute; top: 15px; left: 15px; right: 15px; z-index: 5000; display: none; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, .7); backdrop-filter: blur(5px); padding: 8px 15px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, .2); }
@@ -249,7 +238,7 @@
     },
 
     heroStops: {
-     'start':{ top: 84, left: 71 }, // Вход (арка)
+   'start':{ top: 84, left: 71 }, // Вход (арка)
       '1': { top: 68, left: 23 }, // игрушки
       '2': { top: 84, left: 82 }, // леденцы
       '3': { top: 92, left: 32 }, // выпечка
@@ -259,16 +248,17 @@
       'tree': { top: 56, left: 39 } //елка
     },
 
+    // ВАШИ ТОЧНЫЕ КООРДИНАТЫ
     houseStyles: {
-      1: { width: '162px', height: '180px', top: '-44%', left: '25%' }, //игрушки
-      2: { width: '190px', height: '190px', top: '-55%', left: '70%' }, // леденцы
-      3: { width: '320px', height: '274px', top: '-15%', left: '-15%' }, // валенки
-      4: { width: '162px', height: '170px', top: '-42%', left: '-1%' }, // напитки
-      5: { width: '160px', height: '170px', top: '-42%', left: '126%' } // выпечка
+       1: { width: '158px', height: '180px', top: '-72%', left: '-28%' }, 
+      2: { width: '190px', height: '190px', top: '-64%', left: '-20%' }, 
+      3: { width: '320px', height: '274px', top: '-63%', left: '-151%' }, 
+      4: { width: '162px', height: '170px', top: '-46%', left: '-93%' }, 
+      5: { width: '154px', height: '170px', top: '-58%', left: '16%' } 
     },
 
-    shelf: { itemSize: '100%', itemOffsetY: '35%' }, 
-    collector: { itemSize: '100%' } 
+    shelf: { itemSize: '80%', itemOffsetY: '15%' }, 
+    collector: { itemSize: '80%' } 
   };
 
   const ASSETS = {
@@ -284,8 +274,8 @@
   <div class="start-content">
     <button class="btn-start-orange" onclick="goToLetter()">НАЧАТЬ ИГРУ</button>
     <div class="social-icons">
-      <a href="#" class="s-icon" onclick="alert('Сайт')">🌐</a>
-      <a href="#" class="s-icon" onclick="alert('Телеграм')">✈️</a>
+      <a href="https://google.com" target="_blank" class="s-icon">🌐</a>
+      <a href="https://t.me/durov" target="_blank" class="s-icon">✈️</a>
     </div>
   </div>
 </div>
@@ -402,7 +392,11 @@
   let isMoving = false;
   const done = new Set();
   let currentLevelId = 0;
-  let levelTimer;
+  
+  let levelTimer; 
+  let gameInterval; // Таймер всей игры
+  let isGameFinished = false; // Флаг окончания игры
+
   let quizIndex = 0;
   let quizScore = 0; 
   let cfoBudget = 40000;
@@ -467,19 +461,17 @@
       setTimeout(()=> { document.getElementById('bubble-hero').classList.add('visible'); document.getElementById('story-btn').classList.add('visible'); }, 1000); 
   }
   
-  // ЗАПУСК ТУТОРИАЛА ВМЕСТО ИГРЫ
   function startTutorial() {
       document.getElementById('story-screen').style.display = 'none';
       document.getElementById('tutorial-screen').style.display = 'flex';
   }
 
-  // РЕАЛЬНЫЙ СТАРТ ИГРЫ ПОСЛЕ ТУТОРИАЛА
   function closeTutorialAndStart() {
       document.getElementById('tutorial-screen').style.display = 'none';
       document.getElementById('hud').style.display = 'flex';
       gameStartTime = Date.now();
       let t=600; 
-      setInterval(()=>{ 
+      gameInterval = setInterval(()=>{ 
           t--; 
           if(t>=0) { 
               let m=Math.floor(t/60).toString().padStart(2,'0'); 
@@ -548,7 +540,7 @@
     if(type==='shelf') playShelf(r);
   }
 
-  // --- ИГРА 1: СКЛАД ---
+  // ИГРЫ
   function playCollector(r) {
     let deck = [...ASSETS.collector, ...ASSETS.collector, ...ASSETS.collector].slice(0,12).sort(()=>Math.random()-.5);
     let opened=[], found=0;
@@ -571,219 +563,49 @@
     };
   }
 
-  // --- ИГРА 2: КВИЗ ---
-  const QUIZ_POOL = [
-      {t: "Поставщик требует 100% предоплату наличными прямо сейчас.", a: [{t: "Платим, срочно нужен товар!", ok: false, exp: "Опасно! Без договора и гарантий деньги могут пропасть. Всегда фиксируй сделку."}, {t: "Предложить 50/50 по договору", ok: true, exp: "Верно! Разбивка платежа и договор снижают риски. Деньги любят счет и порядок."}]},
-      {t: "Главный аниматор заболел за час до начала шоу.", a: [{t: "Отменить представление", ok: false, exp: "Это удар по репутации! Клиенты уйдут расстроенными и больше не вернутся."}, {t: "Срочно найти замену", ok: true, exp: "Отлично! В бизнесе всегда должен быть план 'Б'. Шоу должно продолжаться!"}]},
-      {t: "В соцсетях появился гневный отзыв от клиента.", a: [{t: "Удалить комментарий", ok: false, exp: "Плохая идея. Это разозлит клиента еще больше. Цензура убивает доверие."}, {t: "Вежливо ответить и помочь", ok: true, exp: "Супер! Грамотная работа с негативом превращает хейтера в лояльного клиента."}]},
-      {t: "Внезапно отключили электричество на всей ярмарке.", a: [{t: "Закрыться до завтра", ok: false, exp: "Простой стоит денег! Аренда капает, а выручки нет."}, {t: "Запустить генератор", ok: true, exp: "Правильно! Техническая готовность спасает выручку. Клиенты оценят твою находчивость."}]},
-      {t: "Пришла внеплановая проверка пожарной безопасности.", a: [{t: "Не пускать и спорить", ok: false, exp: "Ошибка! Конфликт с органами приведет к штрафам или закрытию."}, {t: "Показать документы", ok: true, exp: "Верно! Если бизнес 'белый' и безопасный, бояться нечего."}]},
-      {t: "Конкурент напротив снизил цены в 2 раза.", a: [{t: "Тоже снизить цены", ok: false, exp: "Демпинг — путь в никуда. Вы оба потеряете прибыль и разоритесь."}, {t: "Улучшить сервис", ok: true, exp: "Точно! Люди платят не только за товар, но и за эмоции и качество."}]},
-      {t: "Сотрудник грубит покупателям.", a: [{t: "Уволить без разговоров", ok: false, exp: "Резко. Сначала стоит разобраться в причине, обучение дешевле найма нового."}, {t: "Провести беседу", ok: true, exp: "Мудро. Возможно, человек просто устал. Обучение стандартам сервиса поможет."}]},
-      {t: "Заканчивается самый ходовой товар.", a: [{t: "Продавать что осталось", ok: false, exp: "Упущенная прибыль! Клиенты уйдут к конкурентам за нужным товаром."}, {t: "Срочный дозаказ", ok: true, exp: "Верно! Анализ запасов — ключ к высоким продажам. Полки не должны пустовать."}]},
-      {t: "Клиент просит скидку, которой нет в прайсе.", a: [{t: "Грубо отказать", ok: false, exp: "Клиент обидится и уйдет. Гибкость — важное качество продавца."}, {t: "Предложить бонус", ok: true, exp: "Хитро! Не снижая цену, ты даешь ценность (например, красивую упаковку)."}]},
-      {t: "Выручка упала из-за плохой погоды.", a: [{t: "Сократить расходы", ok: true, exp: "Разумно. В 'низкий сезон' нужно оптимизировать бюджет, чтобы выжить."}, {t: "Взять кредит на рекламу", ok: false, exp: "Рискованно! В кризис долги могут утянуть на дно. Лучше экономить."}]},
-      {t: "Нашли ошибку в налоговой декларации.", a: [{t: "Оставить как есть", ok: false, exp: "Опасно! Налоговая все равно узнает, и будет штраф плюс пени."}, {t: "Подать уточненку", ok: true, exp: "Честно! Самостоятельное исправление ошибок часто освобождает от штрафов."}]},
-      {t: "Появилась идея нового продукта, но денег мало.", a: [{t: "Сделать прототип (MVP)", ok: true, exp: "Верно! Сначала тестируем спрос малой кровью, потом вкладываем миллионы."}, {t: "Вложить всё в запуск", ok: false, exp: "Ошибка выжившего. Если продукт не зайдет, ты потеряешь всё."}]}
-  ];
-
-  function initQuizQuestions() {
-      currentQuizQuestions = QUIZ_POOL.sort(() => 0.5 - Math.random()).slice(0, 5);
-  }
-
+  const QUIZ_POOL = [{t:"Поставщик требует 100% предоплату наличными прямо сейчас.",a:[{t:"Платим, срочно нужен товар!",ok:false,exp:"Опасно! Без договора и гарантий деньги могут пропасть. Всегда фиксируй сделку."},{t:"Предложить 50/50 по договору",ok:true,exp:"Верно! Разбивка платежа и договор снижают риски. Деньги любят счет и порядок."}]},{t:"Главный аниматор заболел за час до начала шоу.",a:[{t:"Отменить представление",ok:false,exp:"Это удар по репутации! Клиенты уйдут расстроенными и больше не вернутся."},{t:"Срочно найти замену",ok:true,exp:"Отлично! В бизнесе всегда должен быть план 'Б'. Шоу должно продолжаться!"}]},{t:"В соцсетях появился гневный отзыв от клиента.",a:[{t:"Удалить комментарий",ok:false,exp:"Плохая идея. Это разозлит клиента еще больше. Цензура убивает доверие."},{t:"Вежливо ответить и помочь",ok:true,exp:"Супер! Грамотная работа с негативом превращает хейтера в лояльного клиента."}]},{t:"Внезапно отключили электричество на всей ярмарке.",a:[{t:"Закрыться до завтра",ok:false,exp:"Простой стоит денег! Аренда капает, а выручки нет."},{t:"Запустить генератор",ok:true,exp:"Правильно! Техническая готовность спасает выручку. Клиенты оценят твою находчивость."}]},{t:"Пришла внеплановая проверка пожарной безопасности.",a:[{t:"Не пускать и спорить",ok:false,exp:"Ошибка! Конфликт с органами приведет к штрафам или закрытию."},{t:"Показать документы",ok:true,exp:"Верно! Если бизнес 'белый' и безопасный, бояться нечего."}]},{t:"Конкурент напротив снизил цены в 2 раза.",a:[{t:"Тоже снизить цены",ok:false,exp:"Демпинг — путь в никуда. Вы оба потеряете прибыль и разоритесь."},{t:"Улучшить сервис",ok:true,exp:"Точно! Люди платят не только за товар, но и за эмоции и качество."}]},{t:"Сотрудник грубит покупателям.",a:[{t:"Уволить без разговоров",ok:false,exp:"Резко. Сначала стоит разобраться в причине, обучение дешевле найма нового."},{t:"Провести беседу",ok:true,exp:"Мудро. Возможно, человек просто устал. Обучение стандартам сервиса поможет."}]},{t:"Заканчивается самый ходовой товар.",a:[{t:"Продавать что осталось",ok:false,exp:"Упущенная прибыль! Клиенты уйдут к конкурентам за нужным товаром."},{t:"Срочный дозаказ",ok:true,exp:"Верно! Анализ запасов — ключ к высоким продажам. Полки не должны пустовать."}]},{t:"Клиент просит скидку, которой нет в прайсе.",a:[{t:"Грубо отказать",ok:false,exp:"Клиент обидится и уйдет. Гибкость — важное качество продавца."},{t:"Предложить бонус",ok:true,exp:"Хитро! Не снижая цену, ты даешь ценность (например, красивую упаковку)."}]},{t:"Выручка упала из-за плохой погоды.",a:[{t:"Сократить расходы",ok:true,exp:"Разумно. В 'низкий сезон' нужно оптимизировать бюджет, чтобы выжить."},{t:"Взять кредит на рекламу",ok:false,exp:"Рискованно! В кризис долги могут утянуть на дно. Лучше экономить."}]},{t:"Нашли ошибку в налоговой декларации.",a:[{t:"Оставить как есть",ok:false,exp:"Опасно! Налоговая все равно узнает, и будет штраф плюс пени."},{t:"Подать уточненку",ok:true,exp:"Честно! Самостоятельное исправление ошибок часто освобождает от штрафов."}]},{t:"Появилась идея нового продукта, но денег мало.",a:[{t:"Сделать прототип (MVP)",ok:true,exp:"Верно! Сначала тестируем спрос малой кровью, потом вкладываем миллионы."},{t:"Вложить всё в запуск",ok:false,exp:"Ошибка выжившего. Если продукт не зайдет, ты потеряешь всё."}]}];
+  function initQuizQuestions() { currentQuizQuestions = QUIZ_POOL.sort(() => 0.5 - Math.random()).slice(0, 5); }
   function playQuiz(r) {
-    function renderQuiz() {
-      if(quizIndex >= currentQuizQuestions.length) { showWin('quiz'); return; }
-      let cur = currentQuizQuestions[quizIndex];
-      r.innerHTML = `<div class="quiz-counter">Вопрос: ${quizIndex + 1}/5</div><div class="quiz-question">${cur.t}</div><div id="quiz-options-container">${cur.a.map((opt, i)=>`<div class="quiz-opt" id="q-opt-${i}" onclick="checkQ(${i})">${opt.t}<div class="quiz-explanation" id="exp-${i}">${opt.exp}</div></div>`).join('')}</div><div id="quiz-next-btn" style="display:none; margin-top:10px;"></div>`;
-    }
-    window.checkQ = (optIdx) => {
-      if(document.querySelector('.quiz-opt.correct')) return;
-      let cur = currentQuizQuestions[quizIndex];
-      let ans = cur.a[optIdx];
-      let el = document.getElementById(`q-opt-${optIdx}`);
-      el.classList.add('show-exp');
-      if(ans.ok) {
-        el.classList.add('correct');
-        document.getElementById(`quiz-next-btn`).style.display = 'block';
-        document.getElementById(`quiz-next-btn`).innerHTML = `<button class="btn-check" onclick="nextQ()">ДАЛЕЕ</button>`;
-      } else {
-        el.classList.add('wrong');
-      }
-    };
-    window.nextQ = () => { quizIndex++; renderQuiz(); };
-    renderQuiz();
+    function renderQuiz() { if(quizIndex >= currentQuizQuestions.length) { showWin('quiz'); return; } let cur = currentQuizQuestions[quizIndex]; r.innerHTML = `<div class="quiz-counter">Вопрос: ${quizIndex + 1}/5</div><div class="quiz-question">${cur.t}</div><div id="quiz-options-container">${cur.a.map((opt, i)=>`<div class="quiz-opt" id="q-opt-${i}" onclick="checkQ(${i})">${opt.t}<div class="quiz-explanation" id="exp-${i}">${opt.exp}</div></div>`).join('')}</div><div id="quiz-next-btn" style="display:none; margin-top:10px;"></div>`; }
+    window.checkQ = (optIdx) => { if(document.querySelector('.quiz-opt.correct')) return; let cur = currentQuizQuestions[quizIndex]; let ans = cur.a[optIdx]; let el = document.getElementById(`q-opt-${optIdx}`); el.classList.add('show-exp'); if(ans.ok) { el.classList.add('correct'); document.getElementById(`quiz-next-btn`).style.display = 'block'; document.getElementById(`quiz-next-btn`).innerHTML = `<button class="btn-check" onclick="nextQ()">ДАЛЕЕ</button>`; } else { el.classList.add('wrong'); } };
+    window.nextQ = () => { quizIndex++; renderQuiz(); }; renderQuiz();
   }
 
-  // --- ИГРА 3: БЮДЖЕТ ---
   function playCFO(r) {
     const items = [{t:"Свет и Звук", c:15000, must:true, icon:"💡"}, {t:"Ледяной трон", c:25000, must:false, icon:"❄️"}, {t:"Охрана", c:20000, must:true, icon:"👮‍♂️"}, {t:"Фейерверк", c:10000, must:false, icon:"🎆"}];
-    function renderCFO() {
-      if(cfoIndex >= items.length) { showWin('cfo'); return; }
-      if(cfoBudget < 0) { showNote("Банкрот! Заново."); cfoBudget = 40000; cfoIndex = 0; }
-      let item = items[cfoIndex];
-      r.innerHTML = `<div class="brief">Бюджет: <b style="color:var(--gold); font-size:18px;">${cfoBudget}₽</b></div>
-        <div class="cfo-question-box"><div class="cfo-icon">${item.icon}</div><div style="font-size:18px; font-weight:bold; margin-bottom:5px;">${item.t}</div><div class="cfo-price">${item.c}₽</div><div style="font-size:12px; color:#666;">Берем или экономим?</div></div>
-        <div class="cfo-actions"><button class="cfo-btn" style="background:var(--red)" onclick="pay(false)">ОТКАЗАТЬ</button><button class="cfo-btn" style="background:var(--green)" onclick="pay(true)">ОПЛАТИТЬ</button></div>`;
-    }
-    window.pay = (doPay) => {
-      const item = items[cfoIndex];
-      if(doPay){ if(cfoBudget >= item.c) { cfoBudget -= item.c; cfoIndex++; renderCFO(); } else showNote("Не хватает денег!"); } 
-      else { if(item.must) showNote("Это обязательно!"); else { cfoIndex++; renderCFO(); } }
-    };
-    renderCFO();
+    function renderCFO() { if(cfoIndex >= items.length) { showWin('cfo'); return; } if(cfoBudget < 0) { showNote("Банкрот! Заново."); cfoBudget = 40000; cfoIndex = 0; } let item = items[cfoIndex]; r.innerHTML = `<div class="brief">Бюджет: <b style="color:var(--gold); font-size:18px;">${cfoBudget}₽</b></div><div class="cfo-question-box"><div class="cfo-icon">${item.icon}</div><div style="font-size:18px; font-weight:bold; margin-bottom:5px;">${item.t}</div><div class="cfo-price">${item.c}₽</div><div style="font-size:12px; color:#666;">Берем или экономим?</div></div><div class="cfo-actions"><button class="cfo-btn" style="background:var(--red)" onclick="pay(false)">ОТКАЗАТЬ</button><button class="cfo-btn" style="background:var(--green)" onclick="pay(true)">ОПЛАТИТЬ</button></div>`; }
+    window.pay = (doPay) => { const item = items[cfoIndex]; if(doPay){ if(cfoBudget >= item.c) { cfoBudget -= item.c; cfoIndex++; renderCFO(); } else showNote("Не хватает денег!"); } else { if(item.must) showNote("Это обязательно!"); else { cfoIndex++; renderCFO(); } } }; renderCFO();
   }
 
-  // --- ИГРА 4: МАТЧ 3 (ГЛИНТВЕЙН) ---
   function playMatch3(r) {
     const W=5, H=5; let board=[], selected=-1; let goals={wine:10, orange:5, cinnamon:5, clove:5}; let collected={wine:0, orange:0, cinnamon:0, clove:0}; let processing = false;
     function init() { board=[]; for(let i=0; i<W*H; i++) board.push(getRandomItem()); resolveSequence(); }
     function getRandomItem() { return ASSETS.match3[Math.floor(Math.random() * ASSETS.match3.length)]; }
-    function render() {
-      let done = Object.keys(goals).every(k => collected[k] >= goals[k]); if(done) { showWin('match3'); return; }
-      let htmlGoals = ASSETS.match3.map(t => `<div class="m3-goal-item ${collected[t.id]>=goals[t.id]?'done':''}"><img src="${t.img}"><span style="font-size:12px">${collected[t.id]}/${goals[t.id]}</span></div>`).join('');
-      let gridHtml = '';
-      for(let i=0; i<W*H; i++) { let item = board[i]; let inner = item ? `<img src="${item.img}">` : ''; let cls = `m3-cell ${selected === i ? 'selected' : ''}`; gridHtml += `<div class="${cls}" onclick="clkM3(${i})">${inner}</div>`; }
-      r.innerHTML = `<div class="m3-container"><div class="m3-goals">${htmlGoals}</div><div class="m3-grid">${gridHtml}</div></div>`;
-    }
-    window.clkM3 = (i) => {
-      if(processing) return;
-      if(selected === -1) { selected = i; render(); } else if (selected === i) { selected = -1; render(); } else {
-        let r1 = Math.floor(selected / W), c1 = selected % W; let r2 = Math.floor(i / W), c2 = i % W;
-        if (Math.abs(r1 - r2) + Math.abs(c1 - c2) === 1) {
-          processing = true; let temp = board[selected]; board[selected] = board[i]; board[i] = temp; let oldSel = selected; selected = -1; render();
-          if (!hasMatches()) { setTimeout(() => { let temp = board[oldSel]; board[oldSel] = board[i]; board[i] = temp; processing = false; render(); }, 300); } else { setTimeout(() => resolveSequence(), 300); }
-        } else { selected = i; render(); }
-      }
-    };
-    function hasMatches() {
-      for (let r = 0; r < H; r++) { for (let c = 0; c < W - 2; c++) { let i = r * W + c; if (board[i] && board[i+1] && board[i+2] && board[i].id === board[i+1].id && board[i].id === board[i+2].id) return true; } }
-      for (let c = 0; c < W; c++) { for (let r = 0; r < H - 2; r++) { let i = r * W + c; if (board[i] && board[i+W] && board[i+2*W] && board[i].id === board[i+W].id && board[i].id === board[i+2*W].id) return true; } }
-      return false;
-    }
-    function resolveSequence() {
-      let matches = new Set();
-      for (let r = 0; r < H; r++) { for (let c = 0; c < W - 2; c++) { let i = r * W + c; if (board[i] && board[i+1] && board[i+2] && board[i].id === board[i+1].id && board[i].id === board[i+2].id) { matches.add(i); matches.add(i+1); matches.add(i+2); } } }
-      for (let c = 0; c < W; c++) { for (let r = 0; r < H - 2; r++) { let i = r * W + c; if (board[i] && board[i+W] && board[i+2*W] && board[i].id === board[i+W].id && board[i].id === board[i+2*W].id) { matches.add(i); matches.add(i+W); matches.add(i+2*W); } } }
-      if (matches.size > 0) { matches.forEach(idx => { if (board[idx]) { let id = board[idx].id; if (collected[id] < goals[id]) collected[id]++; board[idx] = null; } }); render(); setTimeout(() => { applyGravity(); fillEmpty(); render(); setTimeout(() => resolveSequence(), 300); }, 300); } else { processing = false; }
-    }
-    function applyGravity() {
-      for (let c = 0; c < W; c++) { for (let r = H - 1; r >= 0; r--) { let idx = r * W + c; if (board[idx] === null) { for (let k = r - 1; k >= 0; k--) { let aboveIdx = k * W + c; if (board[aboveIdx] !== null) { board[idx] = board[aboveIdx]; board[aboveIdx] = null; break; } } } } }
-    }
+    function render() { let done = Object.keys(goals).every(k => collected[k] >= goals[k]); if(done) { showWin('match3'); return; } let htmlGoals = ASSETS.match3.map(t => `<div class="m3-goal-item ${collected[t.id]>=goals[t.id]?'done':''}"><img src="${t.img}"><span style="font-size:12px">${collected[t.id]}/${goals[t.id]}</span></div>`).join(''); let gridHtml = ''; for(let i=0; i<W*H; i++) { let item = board[i]; let inner = item ? `<img src="${item.img}">` : ''; let cls = `m3-cell ${selected === i ? 'selected' : ''}`; gridHtml += `<div class="${cls}" onclick="clkM3(${i})">${inner}</div>`; } r.innerHTML = `<div class="m3-container"><div class="m3-goals">${htmlGoals}</div><div class="m3-grid">${gridHtml}</div></div>`; }
+    window.clkM3 = (i) => { if(processing) return; if(selected === -1) { selected = i; render(); } else if (selected === i) { selected = -1; render(); } else { let r1 = Math.floor(selected / W), c1 = selected % W; let r2 = Math.floor(i / W), c2 = i % W; if (Math.abs(r1 - r2) + Math.abs(c1 - c2) === 1) { processing = true; let temp = board[selected]; board[selected] = board[i]; board[i] = temp; let oldSel = selected; selected = -1; render(); if (!hasMatches()) { setTimeout(() => { let temp = board[oldSel]; board[oldSel] = board[i]; board[i] = temp; processing = false; render(); }, 300); } else { setTimeout(() => resolveSequence(), 300); } } else { selected = i; render(); } } };
+    function hasMatches() { for (let r = 0; r < H; r++) { for (let c = 0; c < W - 2; c++) { let i = r * W + c; if (board[i] && board[i+1] && board[i+2] && board[i].id === board[i+1].id && board[i].id === board[i+2].id) return true; } } for (let c = 0; c < W; c++) { for (let r = 0; r < H - 2; r++) { let i = r * W + c; if (board[i] && board[i+W] && board[i+2*W] && board[i].id === board[i+W].id && board[i].id === board[i+2*W].id) return true; } } return false; }
+    function resolveSequence() { let matches = new Set(); for (let r = 0; r < H; r++) { for (let c = 0; c < W - 2; c++) { let i = r * W + c; if (board[i] && board[i+1] && board[i+2] && board[i].id === board[i+1].id && board[i].id === board[i+2].id) { matches.add(i); matches.add(i+1); matches.add(i+2); } } } for (let c = 0; c < W; c++) { for (let r = 0; r < H - 2; r++) { let i = r * W + c; if (board[i] && board[i+W] && board[i+2*W] && board[i].id === board[i+W].id && board[i].id === board[i+2*W].id) { matches.add(i); matches.add(i+W); matches.add(i+2*W); } } } if (matches.size > 0) { matches.forEach(idx => { if (board[idx]) { let id = board[idx].id; if (collected[id] < goals[id]) collected[id]++; board[idx] = null; } }); render(); setTimeout(() => { applyGravity(); fillEmpty(); render(); setTimeout(() => resolveSequence(), 300); }, 300); } else { processing = false; } }
+    function applyGravity() { for (let c = 0; c < W; c++) { for (let r = H - 1; r >= 0; r--) { let idx = r * W + c; if (board[idx] === null) { for (let k = r - 1; k >= 0; k--) { let aboveIdx = k * W + c; if (board[aboveIdx] !== null) { board[idx] = board[aboveIdx]; board[aboveIdx] = null; break; } } } } } }
     function fillEmpty() { for (let i = 0; i < W * H; i++) { if (board[i] === null) board[i] = getRandomItem(); } }
     init(); render();
   }
 
-  // --- ИГРА 5: ПОЛКА (ВИТРИНА) ---
   function playShelf(r) {
-    let allItems = [];
-    for(let i=0; i<8; i++) { allItems.push(ASSETS.shelf[i], ASSETS.shelf[i], ASSETS.shelf[i]); }
-    allItems.push(ASSETS.shelf[8], ASSETS.shelf[8]);
-    let reserveItem = ASSETS.shelf[8];
-
-    allItems.sort(() => Math.random() - 0.5);
-    let emptyPos = Math.floor(Math.random() * 27);
-    let slots = [...allItems.slice(0, emptyPos), null, ...allItems.slice(emptyPos)];
-
-    let selected = -1; 
-    let doneShelves = new Array(9).fill(false); 
-    let sets = 0; 
-    let magicAdded = false;
-    let shelfStyle = `background-image: url('${GAME_CONFIG.images.shelf_bg}');`;
-
+    let allItems = []; for(let i=0; i<8; i++) { allItems.push(ASSETS.shelf[i], ASSETS.shelf[i], ASSETS.shelf[i]); } allItems.push(ASSETS.shelf[8], ASSETS.shelf[8]); let reserveItem = ASSETS.shelf[8];
+    allItems.sort(() => Math.random() - 0.5); let emptyPos = Math.floor(Math.random() * 27); let slots = [...allItems.slice(0, emptyPos), null, ...allItems.slice(emptyPos)];
+    let selected = -1; let doneShelves = new Array(9).fill(false); let sets = 0; let magicAdded = false; let shelfStyle = `background-image: url('${GAME_CONFIG.images.shelf_bg}');`;
     window.finishedImages = new Array(9).fill(null);
-
-    const render = function() {
-        let h = `<div class="shelf-cabinet" style="${shelfStyle}">`;
-        for(let i=0; i<9; i++) {
-            let isDone = doneShelves[i];
-            h += `<div class="shelf-compartment">`;
-            h += slotHtml(i*3); h += slotHtml(i*3+1); h += slotHtml(i*3+2);
-            if(isDone && window.finishedImages[i]) {
-                h += `<div class="big-item"><img src="${window.finishedImages[i]}"></div>`; 
-            }
-            h += `</div>`;
-        }
-        h += `</div><div style="text-align:center;margin-top:10px">Наборов: ${sets}/9</div>`;
-        r.innerHTML = h;
-    }
-
-    function slotHtml(idx) {
-      let img = slots[idx] ? `<img src="${slots[idx]}" style="width:${GAME_CONFIG.shelf.itemSize}; transform: translateY(${GAME_CONFIG.shelf.itemOffsetY})">` : '';
-      let cls = selected===idx ? 'shelf-slot selected' : 'shelf-slot';
-      return `<div class="${cls}" onclick="clkShelf(${idx})">${img}</div>`;
-    }
-
-    window.clkShelf = (i) => {
-        if(slots[i]) {
-            selected = i;
-            render();
-        } else if (selected !== -1) {
-            let oldShelf = Math.floor(selected / 3);
-            let newShelf = Math.floor(i / 3);
-            
-            slots[i] = slots[selected];
-            slots[selected] = null;
-            selected = -1;
-            
-            checkShelf(newShelf);
-            if(oldShelf !== newShelf) checkShelf(oldShelf);
-            render();
-        }
-    }
-
-    function checkShelf(i) {
-      let s1 = slots[i*3], s2 = slots[i*3+1], s3 = slots[i*3+2];
-      
-      if(s1 && s2 && s3 && s1 === s2 && s2 === s3) { 
-          if(!doneShelves[i]) {
-              doneShelves[i] = true; 
-              sets++; 
-              window.finishedImages[i] = s1;
-              slots[i*3] = null;
-              slots[i*3+1] = null;
-              slots[i*3+2] = null;
-
-              if(sets === 4 && !magicAdded) {
-                 let empty = slots.findIndex(s => s === null);
-                 if(empty !== -1) {
-                     slots[empty] = reserveItem;
-                     magicAdded = true;
-                 }
-              }
-              if(sets === 9) {
-                  setTimeout(() => showWin('shelf'), 7000);
-              }
-          }
-      } 
-    }
-
+    const render = function() { let h = `<div class="shelf-cabinet" style="${shelfStyle}">`; for(let i=0; i<9; i++) { let isDone = doneShelves[i]; h += `<div class="shelf-compartment">`; h += slotHtml(i*3); h += slotHtml(i*3+1); h += slotHtml(i*3+2); if(isDone && window.finishedImages[i]) { h += `<div class="big-item"><img src="${window.finishedImages[i]}"></div>`; } h += `</div>`; } h += `</div><div style="text-align:center;margin-top:10px">Наборов: ${sets}/9</div>`; r.innerHTML = h; }
+    function slotHtml(idx) { let img = slots[idx] ? `<img src="${slots[idx]}" style="width:${GAME_CONFIG.shelf.itemSize}; transform: translateY(${GAME_CONFIG.shelf.itemOffsetY})">` : ''; let cls = selected===idx ? 'shelf-slot selected' : 'shelf-slot'; return `<div class="${cls}" onclick="clkShelf(${idx})">${img}</div>`; }
+    window.clkShelf = (i) => { if(slots[i]) { selected = i; render(); } else if (selected !== -1) { let oldShelf = Math.floor(selected / 3); let newShelf = Math.floor(i / 3); slots[i] = slots[selected]; slots[selected] = null; selected = -1; checkShelf(newShelf); if(oldShelf !== newShelf) checkShelf(oldShelf); render(); } }
+    function checkShelf(i) { let s1 = slots[i*3], s2 = slots[i*3+1], s3 = slots[i*3+2]; if(s1 && s2 && s3 && s1 === s2 && s2 === s3) { if(!doneShelves[i]) { doneShelves[i] = true; sets++; window.finishedImages[i] = s1; slots[i*3] = null; slots[i*3+1] = null; slots[i*3+2] = null; if(sets === 4 && !magicAdded) { let empty = slots.findIndex(s => s === null); if(empty !== -1) { slots[empty] = reserveItem; magicAdded = true; } } if(sets === 9) { setTimeout(() => showWin('shelf'), 3000); } } } } // 3 секунды задержка
     render();
   }
 
-  // --- ИГРА 6: ГАДАЛКА ---
-  function openFortune() {
-    const FORTUNES = ["Конкуренты уйдут в декрет!", "Налоговая забудет твой номер.", "Твой стартап купит Илон Маск.", "Откроешь филиал на Бали.", "Клиенты будут платить вперед!", "Найдешь клад в бухгалтерии.", "Твой бренд станет легендой.", "Вся команда выйдет вовремя!", "Инвестор найдется сам.", "Прибыль вырастет в 10 раз!"];
-    let txt = FORTUNES[Math.floor(Math.random()*FORTUNES.length)];
-    document.getElementById('game-container').innerHTML = `<div class="fortune-box">${txt}</div><br><button class="btn-check" onclick="finishLvl()">СПАСИБО!</button>`;
-  }
+  function openFortune() { const FORTUNES = ["Конкуренты уйдут в декрет!", "Налоговая забудет твой номер.", "Твой стартап купит Илон Маск.", "Откроешь филиал на Бали.", "Клиенты будут платить вперед!", "Найдешь клад в бухгалтерии.", "Твой бренд станет легендой.", "Вся команда выйдет вовремя!", "Инвестор найдется сам.", "Прибыль вырастет в 10 раз!"]; let txt = FORTUNES[Math.floor(Math.random()*FORTUNES.length)]; document.getElementById('game-container').innerHTML = `<div class="fortune-box">${txt}</div><br><button class="btn-check" onclick="finishLvl()">СПАСИБО!</button>`; }
 
-  // --- ПОБЕДА ---
-  const WIN_DATA = { 
-    'collector': { title: "СКЛАД ГОТОВ! 🧸", text: "Порядок наведен! Теперь ни одна игрушка не потеряется, и дети получат подарки вовремя. Лавка игрушек открыта!" }, 
-    'quiz': { title: "ТЫ — ЛИДЕР! 🎩", text: "Кризис миновал! Администрация работает как часы. Ты блестяще разрулил все проблемы." }, 
-    'cfo': { title: "БЮДЖЕТ СПАСЕН! 💰", text: "Ты финансовый гений! Счета оплачены, лишнее не потрачено. Казначейство в восторге." }, 
-    'shelf': { title: "ВИТРИНА ИДЕАЛЬНА! 🥖", text: "Мастерская выкладка! Пекарня готова к наплыву гостей, все выглядит невероятно аппетитно." }, 
-    'match3': { title: "УРА! ЛАВКА ОТКРЫТА! 🍷", text: `Благодаря тебе аромат специй снова манит гостей. Ты настоящий мастер уюта!<br><br><b>Твой бонус — фирменный рецепт:</b><br><br>🍒 1л Вишневого сока<br>🍊 1 Апельсин (кружочками)<br>🪵 1 палочка Корицы, 3 гвоздики<br>🍯 Немного мёда и имбиря<br><br><i>Нагреть, не доводя до кипения. Дать настояться 10 мин.</i>` } 
-  };
-
-  function showWin(type) {
-    const d = WIN_DATA[type];
-    const ov = document.getElementById('win-overlay');
-    ov.style.display='flex';
-    confetti({particleCount:150, zIndex:3000});
-    document.getElementById('win-content').innerHTML = `<div class="win-icon">🎉</div><div class="win-text">${d.title}</div><div style="color:#ccc; margin-bottom:20px; text-align:left; font-size:16px; line-height:1.4">${d.text}</div><button class="btn-check" onclick="finishLvl()">ОТЛИЧНО</button>`;
-  }
+  const WIN_DATA = { 'collector': { title: "СКЛАД ГОТОВ! 🧸", text: "Порядок наведен! Теперь ни одна игрушка не потеряется, и дети получат подарки вовремя. Лавка игрушек открыта!" }, 'quiz': { title: "ТЫ — ЛИДЕР! 🎩", text: "Кризис миновал! Администрация работает как часы. Ты блестяще разрулил все проблемы." }, 'cfo': { title: "БЮДЖЕТ СПАСЕН! 💰", text: "Ты финансовый гений! Счета оплачены, лишнее не потрачено. Казначейство в восторге." }, 'shelf': { title: "ВИТРИНА ИДЕАЛЬНА! 🥖", text: "Мастерская выкладка! Пекарня готова к наплыву гостей, все выглядит невероятно аппетитно." }, 'match3': { title: "УРА! ЛАВКА ОТКРЫТА! 🍷", text: `Благодаря тебе аромат специй снова манит гостей. Ты настоящий мастер уюта!<br><br><b>Твой бонус — фирменный рецепт:</b><br><br>🍒 1л Вишневого сока<br>🍊 1 Апельсин (кружочками)<br>🪵 1 палочка Корицы, 3 гвоздики<br>🍯 Немного мёда и имбиря<br><br><i>Нагреть, не доводя до кипения. Дать настояться 10 мин.</i>` } };
+  function showWin(type) { const d = WIN_DATA[type]; const ov = document.getElementById('win-overlay'); ov.style.display='flex'; confetti({particleCount:150, zIndex:3000}); document.getElementById('win-content').innerHTML = `<div class="win-icon">🎉</div><div class="win-text">${d.title}</div><div style="color:#ccc; margin-bottom:20px; text-align:left; font-size:16px; line-height:1.4">${d.text}</div><button class="btn-check" onclick="finishLvl()">ОТЛИЧНО</button>`; }
 
   function finishLvl() {
     document.getElementById('win-overlay').style.display='none';
@@ -792,6 +614,7 @@
     if(!done.has(parseInt(currentLevelId))) {
       done.add(parseInt(currentLevelId));
       document.getElementById('z'+currentLevelId).classList.add('done');
+      
       const sp = document.querySelector(`#z${currentLevelId} .house-sprite`);
       
       const style = GAME_CONFIG.houseStyles[currentLevelId];
@@ -809,7 +632,9 @@
     if(done.size===5) {
       setTimeout(()=>{
         setMapStage(2);
-        document.querySelectorAll('.zone:not(#z-main)').forEach(e=>e.style.display='none');
+        // ВОТ ЗДЕСЬ БЫЛА ОШИБКА. ТЕПЕРЬ СКРЫВАЕМ ТОЛЬКО ВЫПОЛНЕННЫЕ ДОМИКИ, НО ОСТАВЛЯЕМ #z6 (КАРУСЕЛЬ) И #z-main (ЕЛКУ)
+        document.querySelectorAll('.zone:not(#z-main):not(#z6)').forEach(e=>e.style.display='none');
+        
         document.getElementById('modal').style.display='flex';
         document.getElementById('m-title').innerText="ГОТОВО!";
         document.getElementById('m-desc').innerText="Энергия собрана. Зажги елку!";
@@ -818,8 +643,8 @@
     }
   }
 
-  // --- ФИНАЛ ---
   function clickTree() {
+    if(isGameFinished) { showFinalResult(); return; }
     if(done.size < 5) { document.getElementById('alert-modal').style.display = 'flex'; return; }
     const m = document.getElementById('modal'); m.style.display='flex';
     document.getElementById('m-title').innerText="ФИНАЛ";
@@ -838,12 +663,14 @@
     power+=15; if(power>100) power=100; updTree();
     if(power>=100) {
       clearInterval(levelTimer);
+      clearInterval(gameInterval); 
+      isGameFinished = true; 
+
       document.getElementById('modal').style.display='none';
       setMapStage(3);
       document.getElementById('map').classList.add('lit');
       confetti({particleCount:500, spread:150, zIndex:9999});
       
-      // ПОКАЗЫВАЕМ ФИНАЛЬНОЕ ОКНО С РЕЗУЛЬТАТАМИ
       setTimeout(showFinalResult, 1000);
     }
   }
@@ -855,17 +682,11 @@
   }
 
   function showFinalResult() {
-      // Рассчет времени
-      let now = Date.now();
-      let diff = Math.floor((now - gameStartTime) / 1000);
-      let m = Math.floor(diff / 60).toString().padStart(2,'0');
-      let s = (diff % 60).toString().padStart(2,'0');
-      let timeString = `${m}:${s}`;
-
+      let timeString = document.querySelector('.timer').innerText;
       const mElem = document.getElementById('modal');
       mElem.style.display = 'flex';
       document.getElementById('m-title').innerText = "ТЫ БИЗНЕС-ГУРУ!";
-      document.getElementById('m-desc').innerHTML = ""; // Очищаем описание
+      document.getElementById('m-desc').innerHTML = ""; 
       
       document.getElementById('game-area').innerHTML = `
         <div style="text-align:center; color:#fff;">
@@ -888,13 +709,8 @@
   function shareResult(time) {
       const text = `Я спас ярмарку КМБ за ${time}! А ты сможешь быстрее? 🎄✨`;
       if (navigator.share) {
-          navigator.share({
-              title: 'Новогодний Квест КМБ',
-              text: text,
-              url: window.location.href
-          }).catch(console.error);
+          navigator.share({ title: 'Новогодний Квест КМБ', text: text, url: window.location.href }).catch(console.error);
       } else {
-          // Фолбек - копирование в буфер
           navigator.clipboard.writeText(text + " " + window.location.href);
           alert("Результат скопирован! Отправь его друзьям.");
       }
