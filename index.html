@@ -12,59 +12,50 @@
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ================================================================== */
-    /*  1. БАЗОВЫЕ СТИЛИ                                                  */
-    /* ================================================================== */
+    /* ================= СТИЛИ ================= */
     :root {
       --gold: #ffc800; --red: #d42e2e; --green: #27ae60; --dark-bg: #151720;
       --modal-bg: linear-gradient(180deg, #8b0000 0%, #500000 100%);
       --modal-border: 3px solid #ffcc00;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; outline: none; }
-    body { margin: 0; padding: 0; overflow: hidden; font-family: 'Montserrat', sans-serif; background: #000; width: 100vw; height: 100vh; color: #fff; }
+    body { margin: 0; padding: 0; overflow: hidden; font-family: 'Montserrat', sans-serif; background: #000; width: 100vw; height: 100vh; color: #fff; display: flex; justify-content: center; align-items: center; }
     
     #snow-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
     .flake { position: absolute; background: #fff; border-radius: 50%; opacity: .8; animation: fall linear infinite; }
     @keyframes fall { to { transform: translateY(105vh); } }
 
+    /* ФИКСИРОВАННЫЙ КОНТЕЙНЕР (9:16) */
+    #game-wrapper-fixed {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      max-width: 500px;
+      aspect-ratio: 9/16; 
+      overflow: hidden;
+      background: #000;
+    }
+    @media (min-aspect-ratio: 9/16) { #game-wrapper-fixed { height: 100vh; width: auto; } }
+
     /* КНОПКИ */
     .btn-start-orange { background: linear-gradient(to bottom, #ffb300, #ff8c00); color: #5a3a00; border: none; padding: 20px 50px; border-radius: 50px; font-size: 20px; font-weight: 900; letter-spacing: 1px; box-shadow: 0 10px 20px rgba(255, 140, 0, .4); cursor: pointer; text-transform: uppercase; animation: pulseBtn 2s infinite; display: inline-block; position: relative; z-index: 10001; }
     @keyframes pulseBtn { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-    
-    .btn-ny { 
-      width: 100%; max-width: 220px; border: none; border-radius: 18px; padding: 14px; 
-      cursor: pointer; font-weight: 900; letter-spacing: .5px; text-transform: uppercase; color: #fff; font-size: 14px; 
-      background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35), transparent 40%), linear-gradient(180deg, #e53935, #b71c1c); 
-      box-shadow: 0 6px 0 #7f1010, 0 10px 20px rgba(0, 0, 0, .35); 
-      display: block;
-      margin: 0 auto 30px auto; 
-    }
+    .btn-ny { width: 100%; max-width: 220px; border: none; border-radius: 18px; padding: 14px; cursor: pointer; font-weight: 900; letter-spacing: .5px; text-transform: uppercase; color: #fff; font-size: 14px; background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.35), transparent 40%), linear-gradient(180deg, #e53935, #b71c1c); box-shadow: 0 6px 0 #7f1010, 0 10px 20px rgba(0, 0, 0, .35); display: block; margin: 0 auto 30px auto; }
     .btn-ny:active { transform: translateY(3px); box-shadow: 0 3px 0 #7f1010; }
-
     .btn-main { background: linear-gradient(180deg, #ffae00, #ff8800); color: #4a3b00; border: none; padding: 18px 20px; border-radius: 16px; width: 100%; max-width: 280px; font-size: 16px; font-weight: 900; box-shadow: 0 6px 0 #c66a00; cursor: pointer; text-transform: uppercase; margin: 20px auto 0; display: block; position: relative; z-index: 50; }
     .btn-main:active { transform: translateY(4px); box-shadow: 0 2px 0 #c66a00; }
     .btn-check { width: 100%; padding: 14px; background: var(--green); color: #fff; font-weight: 900; border: none; border-radius: 10px; margin-top: 10px; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 0 #1e8449; }
     .btn-check:active { transform: translateY(2px); box-shadow: 0 2px 0 #1e8449; }
 
     /* ЭКРАНЫ */
-    #start-screen, #letter-screen, #char-screen, #story-screen, #tutorial-screen, #interior-screen, #modal, #win-overlay, #alert-modal { position: fixed; inset: 0; display: none; justify-content: center; align-items: center; flex-direction: column; }
+    #start-screen, #letter-screen, #char-screen, #story-screen, #tutorial-screen, #interior-screen, #modal, #win-overlay, #alert-modal { position: absolute; inset: 0; display: none; justify-content: center; align-items: center; flex-direction: column; }
     #start-screen { display: flex; z-index: 10000; background-size: cover; background-position: center; justify-content: flex-end; padding-bottom: 80px; transition: opacity .8s; }
     .start-content { display: flex; flex-direction: column; align-items: center; gap: 20px; width: 100%; pointer-events: auto; }
     .social-icons { display: flex; justify-content: center; gap: 20px; width: 100%; margin-top: 10px; z-index: 10002; }
     .s-icon { width: 50px; height: 50px; background: rgba(255, 255, 255, .2); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; cursor: pointer; backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, .3); text-decoration: none; }
     
     #letter-screen { z-index: 9000; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); }
-    
-    .letter-paper { 
-      position: relative; 
-      width: 90vw; max-width: 320px; 
-      aspect-ratio: 9/14; 
-      background-position: center; background-size: 100% 100%; background-repeat: no-repeat; 
-      padding: 60px 30px 20px 30px; 
-      display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; 
-      color: #3e2723; 
-    }
-    
+    .letter-paper { position: relative; width: 90%; max-width: 320px; aspect-ratio: 9/14; background-position: center; background-size: 100% 100%; background-repeat: no-repeat; padding: 60px 30px 20px 30px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; text-align: center; color: #3e2723; }
     .letter-title { font-family: 'Montserrat', sans-serif; font-weight: 900; font-size: 22px; color: #b30000; text-transform: uppercase; margin-top: 15px; margin-bottom: 5px; display: block; }
     .letter-body { font-family: 'Caveat', cursive; font-size: 24px; line-height: 1.3; font-weight: 700; margin-bottom: 10px; flex: 1; display: flex; flex-direction: column; justify-content: center; }
     
@@ -81,14 +72,7 @@
     .char-img-preview { width: 80px; height: 80px; margin-bottom: 15px; background-size: cover; border-radius: 50%; border: 2px solid #fff; }
 
     .chat-container { width: 100%; max-width: 420px; display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; padding: 0 15px; }
-    
-    .bubble { 
-      display: flex; gap: 14px; align-items: center; width: 100%; min-height: 100px; 
-      opacity: 0; transform: translateY(20px); transition: all .5s ease-out; 
-      background-size: 100% 100%; background-repeat: no-repeat; 
-      background-color: transparent !important; border: none !important; box-shadow: none !important; 
-      padding: 25px 30px; text-shadow: 0 1px 2px #000; 
-    }
+    .bubble { display: flex; gap: 14px; align-items: center; width: 100%; min-height: 100px; opacity: 0; transform: translateY(20px); transition: all .5s ease-out; background-size: 100% 100%; background-repeat: no-repeat; background-color: transparent !important; border: none !important; box-shadow: none !important; padding: 25px 30px; text-shadow: 0 1px 2px #000; }
     .bubble.mayor { background-image: var(--bubble-bg-left); }
     .bubble.hero { background-image: var(--bubble-bg-right); flex-direction: row-reverse; text-align: right; }
     .bubble.visible { opacity: 1; transform: translateY(0); }
@@ -97,33 +81,36 @@
     #story-btn { opacity: 0; transform: translateY(20px); transition: all .5s ease-out; }
     #story-btn.visible { opacity: 1; transform: translateY(0); }
 
-    /* КАРТА */
-    #map { 
-        position: absolute; inset: 0; background-color: #000; 
-        background-size: 100% 100%; 
-        background-position: center; 
-        z-index: 1000; transition: 1s; 
-    }
+    /* КАРТА И ЗОНЫ */
+    #map { position: absolute; inset: 0; background-color: #000; background-size: 100% 100%; background-position: center; z-index: 1000; transition: 1s; }
     #map.lit { filter: brightness(1.2); }
     #hero { position: absolute; width: 100px; height: 100px; background-size: contain; background-repeat: no-repeat; background-position: center bottom; z-index: 30; transition: top 1s linear, left 1s linear; }
     #hero.walking { animation: walkBob .3s infinite alternate; }
     @keyframes walkBob { from { transform: translate(-50%, -90%) rotate(-3deg); } to { transform: translate(-50%, -92%) rotate(3deg); } }
     
     .zone { position: absolute; width: 100px; height: 100px; transform: translate(-50%, -50%); z-index: 10; cursor: pointer; }
-    .marker { display: none; }
     
-    .house-sprite { 
-        position: absolute; 
-        background: none center/contain no-repeat; 
-        pointer-events: none; 
-        opacity: 0; 
-        transition: opacity .35s; 
-        z-index: 9; 
+    /* СВЕЧЕНИЕ ДЛЯ АКТИВНОГО ДОМИКА */
+    .target-glow {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 120px; height: 120px;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(circle, rgba(255, 200, 0, 0.6) 0%, rgba(255, 100, 0, 0) 70%);
+        border-radius: 50%;
+        animation: pulseTarget 1.5s infinite;
+        pointer-events: none;
     }
-    .zone.done .house-sprite { opacity: 1; }
-    
-    #hud { position: absolute; top: 15px; left: 15px; right: 15px; z-index: 5000; display: none; justify-content: space-between; align-items: center; background: rgba(0, 0, 0, .7); backdrop-filter: blur(5px); padding: 8px 15px; border-radius: 30px; border: 1px solid rgba(255, 255, 255, .2); }
+    @keyframes pulseTarget {
+        0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+        50% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+        100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+    }
+
+    #hud { position: absolute; top: 15px; left: 15px; right: 15px; z-index: 5000; display: none; flex-direction: column; align-items: center; background: rgba(0, 0, 0, .7); backdrop-filter: blur(5px); padding: 8px 15px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, .2); }
+    .timer-row { display: flex; justify-content: space-between; width: 100%; align-items: center; margin-bottom: 5px; }
     .timer { font-weight: 800; color: var(--gold); font-size: 18px; }
+    #quest-text { font-size: 14px; font-weight: 900; color: #fff; text-transform: uppercase; text-align: center; }
 
     #interior-screen { z-index: 6000; background-color: #000; background-position: center; background-size: cover; background-repeat: no-repeat; }
     #modal, #win-overlay, #alert-modal { z-index: 6000; background-color: rgba(0, 0, 0, 0.85); backdrop-filter: blur(5px); }
@@ -135,23 +122,19 @@
     .close-btn { font-size: 32px; color: #fff; cursor: pointer; line-height: 1; }
     .game-icon { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
 
-    /* Полка */
+    /* Мини-игры */
     .shelf-cabinet { background-position: center; background-size: cover; background-repeat: no-repeat; border: 4px solid #3e2723; border-radius: 10px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 6px; box-shadow: inset 0 0 20px #000; }
     .shelf-compartment { aspect-ratio: 1; background: rgba(0, 0, 0, 0.4); border-radius: 6px; position: relative; display: grid; grid-template-columns: repeat(3, 1fr); padding: 2px; }
     .shelf-slot { display: flex; justify-content: center; align-items: flex-end; cursor: pointer; position: relative; z-index: 10; aspect-ratio: 1/1; margin: auto; width: 95%; }
     .shelf-slot.selected::after { content: ''; position: absolute; inset: 0; border: 3px solid var(--gold); border-radius: 6px; box-shadow: 0 0 15px var(--gold), inset 0 0 10px var(--gold); pointer-events: none; }
     .big-item { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 0; opacity: 1; pointer-events: none; background: rgba(0,0,0,0.3); border-radius: 6px; }
     .big-item img { width: 90%; height: 90%; object-fit: contain; filter: drop-shadow(0 0 15px gold); }
-
-    /* Склад */
     .collector-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
     .collector-card { position: relative; aspect-ratio: 1; border-radius: 12px; cursor: pointer; transform-style: preserve-3d; transition: transform .3s; }
     .collector-card.open { transform: rotateY(180deg); }
     .collector-face { position: absolute; inset: 0; backface-visibility: hidden; border-radius: 12px; display: flex; justify-content: center; align-items: center; background-color: transparent !important; border: none !important; box-shadow: none !important; }
     .collector-front { transform: rotateY(180deg); background-color: rgba(255, 255, 255, 0.1) !important; }
     .collector-back { background-size: contain; background-position: center; background-repeat: no-repeat; }
-
-    /* Глинтвейн */
     .m3-container { display: flex; flex-direction: column; align-items: center; width: 100%; }
     .m3-goals { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-shrink: 0; width: 100%; }
     .m3-goal-item { display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.15); padding: 5px; border-radius: 10px; width: 60px; height: 70px; }
@@ -161,8 +144,6 @@
     .m3-cell { position: relative; background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; display: flex; justify-content: center; align-items: center; cursor: pointer; aspect-ratio: 1 / 1; }
     .m3-cell img { width: 80%; height: 80%; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5)); pointer-events: none; }
     .m3-cell.selected { background: rgba(255,255,255,0.5); border: 2px solid var(--gold); transform: scale(0.9); box-shadow: 0 0 10px var(--gold); }
-
-    /* Квиз и Бюджет */
     .quiz-question { font-size: 16px; margin-bottom: 15px; font-weight: bold; background: rgba(0, 0, 0, 0.3); padding: 15px; border-radius: 10px; border-left: 4px solid var(--gold); }
     .quiz-opt { background: rgba(255, 255, 255, 0.1); padding: 15px; margin-bottom: 10px; border-radius: 12px; cursor: pointer; font-size: 14px; border: 2px solid rgba(255, 255, 255, 0.1); }
     .quiz-opt.correct { background: rgba(46, 204, 113, .3); border-color: var(--green); }
@@ -175,19 +156,16 @@
     .cfo-price { font-size: 24px; font-weight: 900; color: var(--red); margin: 10px 0; }
     .cfo-actions { display: flex; gap: 10px; margin-top: 15px; }
     .cfo-btn { flex: 1; padding: 15px; border-radius: 12px; border: none; font-weight: 800; color: #fff; cursor: pointer; }
-
-    /* Финал */
     #final-tree-visual { width: 160px; height: 220px; margin: 0 auto 15px; background-position: center; background-size: contain; background-repeat: no-repeat; transition: filter 0.2s, opacity 0.5s; opacity: 0.3; filter: grayscale(1); }
     #bar-bg { width: 100%; height: 24px; background: #222; border-radius: 12px; overflow: hidden; border: 2px solid #555; margin-bottom: 15px; }
     #bar-fill { width: 0%; height: 100%; background: linear-gradient(90deg, #ff8c00, #ffeb3b); transition: width .1s; }
     #final-btn { width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, #ff5252, #b71c1c); border: 4px solid #fff; box-shadow: 0 0 20px #ff0000; margin: 0 auto; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 18px; cursor: pointer; }
-    .game-note { background: rgba(200, 0, 0, 0.9); color: #fff; padding: 10px 20px; border-radius: 20px; position: absolute; top: 60px; left: 50%; transform: translateX(-50%); z-index: 3000; display: none; font-weight: bold; }
-    .game-note.show { display: block; animation: fadeOut 2s forwards; }
+    .game-note { background: rgba(200, 0, 0, 0.9); color: #fff; padding: 10px 20px; border-radius: 20px; position: absolute; top: 60px; left: 50%; transform: translateX(-50%); z-index: 3000; display: none; font-weight: bold; width: 80%; text-align: center; }
+    .game-note.show { display: block; animation: fadeOut 2.5s forwards; }
     @keyframes fadeOut { 0% { opacity: 1; transform: translate(-50%, 0); } 10% { transform: translate(-50%, -5px); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -20px); } }
     .win-icon { font-size: 60px; margin-bottom: 10px; }
     .win-text { font-size: 24px; color: var(--gold); text-transform: uppercase; font-weight: 900; margin-bottom: 10px; }
     
-    /* СТИЛИ ТУТОРИАЛА */
     #tutorial-screen .game-wrapper { text-align: center; }
     .tut-list { text-align: left; margin: 20px 0; font-size: 16px; line-height: 1.6; color: #eee; }
     .tut-list li { margin-bottom: 10px; }
@@ -195,14 +173,21 @@
 </head>
 <body>
 
+<div id="game-wrapper-fixed">
+
 <script>
   const GAME_CONFIG = {
-    // ВСЕ КАРТИНКИ
     images: {
       bg_loading:   'img/loading.jpg',
-      map_stage_1:  'img/map.png',
-      map_stage_2:  'img/map_2.png',
-      map_stage_3:  'img/map_3.png',
+      // Карты
+      map_0: 'img/map_0.png',
+      map_1: 'img/map_1.png',
+      map_2: 'img/map_2.png',
+      map_3: 'img/map_3.png',
+      map_4: 'img/map_4.png',
+      map_5: 'img/map_5.png',
+      map_final: 'img/tree_final_map.png',
+
       letter_bg:    'img/letter_bg.png',
       bubble_left:  'img/bubble_left.png',
       bubble_right: 'img/bubble_right.png',
@@ -215,30 +200,22 @@
       card_back:    'img/card_back.png', 
       shelf_bg:     'img/shelf_bg.png',   
       tree_final:   'img/tree_final.png',
-      h1_done:      'img/house/house1_glow.png',
-      h2_done:      'img/house/house2_glow.png',
-      h3_done:      'img/house/house3_glow.png',
-      h4_done:      'img/house/house4_glow.png',
-      h5_done:      'img/house/house5_glow.png',
       mayor:        'img/avatar/avatar-mayor.png'
     },
-
     characters: {
       boy:   { avatar: 'img/avatar/portret_man.png',   sprite: 'img/sprite/man.png' },
       girl:  { avatar: 'img/avatar/portret_girl.png',  sprite: 'img/sprite/girl.png' },
       santa: { avatar: 'img/avatar/portret_moroz.png', sprite: 'img/sprite/moroz.png' },
       snow:  { avatar: 'img/avatar/portret_snow.png',  sprite: 'img/sprite/snow.png' }
     },
-
     heroPhrases: {
         boy: "Задача ясна. Применим антикризисный менеджмент!",
         girl: "Я составлю стратегию. Ярмарка станет самой прибыльной!",
         santa: "Охо-хо! Не переживай, мэр! Чудеса — моя работа!",
         snow: "Мы украсим каждый уголок! Будет очень уютно и празднично!"
     },
-
     heroStops: {
-   'start':{ top: 84, left: 71 }, // Вход (арка)
+      'start':{ top: 84, left: 71 }, // Вход (арка)
       '1': { top: 68, left: 23 }, // игрушки
       '2': { top: 84, left: 82 }, // леденцы
       '3': { top: 92, left: 32 }, // выпечка
@@ -247,22 +224,12 @@
       '6': { top: 61, left: 60 }, // карусель
       'tree': { top: 56, left: 39 } //елка
     },
-
-    // ВАШИ ТОЧНЫЕ КООРДИНАТЫ
-    houseStyles: {
-       1: { width: '158px', height: '180px', top: '-72%', left: '-28%' }, 
-      2: { width: '190px', height: '190px', top: '-64%', left: '-20%' }, 
-      3: { width: '320px', height: '274px', top: '-63%', left: '-151%' }, 
-      4: { width: '162px', height: '170px', top: '-46%', left: '-93%' }, 
-      5: { width: '154px', height: '170px', top: '-58%', left: '16%' } 
-    },
-
     shelf: { itemSize: '80%', itemOffsetY: '15%' }, 
     collector: { itemSize: '80%' } 
   };
 
   const ASSETS = {
-    collector: [ 'img/toy-1.png', 'img/toy-2.png', 'img/toy-4.png', 'img/toy-5.png' ],
+    collector: [ 'img/toy1.png', 'img/toy2.png', 'img/toy3.png', 'img/toy4.png', 'img/toy5.png' ],
     match3: [ {id:'wine', img:'img/wine.png'}, {id:'orange', img:'img/orange.png'}, {id:'cinnamon', img:'img/cinnamon.png'}, {id:'clove', img:'img/clove.png'} ],
     shelf: [ 'img/shelf_item1.png', 'img/shelf_item2.png', 'img/shelf_item3.png', 'img/shelf_item4.png', 'img/shelf_item5.png', 'img/shelf_item6.png', 'img/shelf_item7.png', 'img/shelf_item8.png', 'img/shelf_item9.png' ] 
   };
@@ -319,33 +286,35 @@
   <button id="story-btn" class="btn-main" onclick="startTutorial()">ПОЕХАЛИ! 🚀</button>
 </div>
 
-<!-- НОВЫЙ ЭКРАН ОБУЧЕНИЯ -->
 <div id="tutorial-screen">
     <div class="game-wrapper">
         <div style="font-size:24px; font-weight:900; color:var(--gold); margin-bottom:15px;">ИНСТРУКЦИЯ</div>
         <ul class="tut-list">
-            <li>🏠 <b>Домики:</b> Нажимай на темные домики, чтобы зайти внутрь и выполнить задание.</li>
-            <li>🔮 <b>Гадалка (Карусель):</b> Зайди к ней, чтобы получить предсказание.</li>
-            <li>🎄 <b>Ёлка:</b> Когда зажгутся все 5 домиков, нажми на Ёлку для финала!</li>
+            <li>🏠 <b>Порядок:</b> Домики открываются по очереди. Следи за подсказками!</li>
+            <li>🔮 <b>Гадалка:</b> Можешь зайти в любой момент.</li>
+            <li>🎄 <b>Финал:</b> Когда пройдешь 5 точек, зажги Ёлку!</li>
         </ul>
         <button class="btn-check" onclick="closeTutorialAndStart()">ВСЁ ПОНЯТНО</button>
     </div>
 </div>
 
 <div id="hud">
-  <div style="font-weight:bold; font-size:14px">🎄 Готовность: <span id="score" style="color:var(--gold)">0</span>/5</div>
-  <div class="timer">10:00</div>
+  <div class="timer-row">
+      <div style="font-weight:bold; font-size:14px">🎄 Готовность: <span id="score" style="color:var(--gold)">0</span>/5</div>
+      <div class="timer">10:00</div>
+  </div>
+  <div id="quest-text">ОЖИДАНИЕ...</div>
 </div>
 
 <div id="map">
   <div id="hero"></div>
-  <div id="z1" class="zone" onclick="moveHeroTo('1')"><div class="marker"></div><div class="house-sprite"></div></div>
-  <div id="z2" class="zone" onclick="moveHeroTo('2')"><div class="marker"></div><div class="house-sprite"></div></div>
-  <div id="z3" class="zone" onclick="moveHeroTo('3')"><div class="marker"></div><div class="house-sprite"></div></div>
-  <div id="z4" class="zone" onclick="moveHeroTo('4')"><div class="marker"></div><div class="house-sprite"></div></div>
-  <div id="z5" class="zone" onclick="moveHeroTo('5')"><div class="marker"></div><div class="house-sprite"></div></div>
-  <div id="z6" class="zone" onclick="moveHeroTo('6')"><div class="marker"></div></div>
-  <div id="z-main" class="zone" onclick="moveHeroTo('tree')"></div>
+  <div id="z3" class="zone" onclick="moveHeroTo('3')"></div>
+  <div id="z4" class="zone" onclick="moveHeroTo('4')"></div>
+  <div id="z1" class="zone" onclick="moveHeroTo('1')"></div>
+  <div id="z5" class="zone" onclick="moveHeroTo('5')"></div>
+  <div id="z2" class="zone" onclick="moveHeroTo('2')"></div>
+  <div id="z6" class="zone" style="display:block" onclick="moveHeroTo('6')"></div>
+  <div id="z-main" class="zone" style="display:block" onclick="moveHeroTo('tree')"></div>
 </div>
 
 <div id="interior-screen">
@@ -381,9 +350,11 @@
   <div class="game-wrapper" style="text-align:center;">
     <div style="font-size:50px; margin-bottom:10px;">🎄⚠️</div>
     <div style="font-size:18px; font-weight:bold; color:var(--gold); margin-bottom:10px;">РАНО!</div>
-    <div style="color:#eee; margin-bottom:20px; line-height:1.4;">Энергии маловато! Пройди все 5 домиков, чтобы зарядить гирлянду и зажечь Ёлку.</div>
+    <div style="color:#eee; margin-bottom:20px; line-height:1.4;">Сначала нужно пройти все 5 точек по порядку! Следуй подсказкам.</div>
     <button class="btn-check" onclick="document.getElementById('alert-modal').style.display='none'">ПОНЯТНО</button>
   </div>
+</div>
+
 </div>
 
 <script>
@@ -394,8 +365,8 @@
   let currentLevelId = 0;
   
   let levelTimer; 
-  let gameInterval; // Таймер всей игры
-  let isGameFinished = false; // Флаг окончания игры
+  let gameInterval; 
+  let isGameFinished = false; 
 
   let quizIndex = 0;
   let quizScore = 0; 
@@ -403,6 +374,10 @@
   let cfoIndex = 0;
   let currentQuizQuestions = [];
   let gameStartTime;
+
+  const LEVEL_ORDER = [3, 4, 1, 5, 2];
+  const LEVEL_NAMES = {3:"ВАЛЕНКИ", 4:"НАПИТКИ", 1:"ИГРУШКИ", 5:"ВЫПЕЧКА", 2:"ЛЕДЕНЦЫ"};
+  let currentOrderIndex = 0;
 
   window.onload = () => { initGame(); };
 
@@ -418,7 +393,7 @@
     document.getElementById('p-snow').style.backgroundImage = `url('${GAME_CONFIG.characters.snow.avatar}')`;
     document.getElementById('av-mayor').style.backgroundImage = `url('${GAME_CONFIG.images.mayor}')`;
 
-    setMapStage(1);
+    setMapStage(0); 
     
     for(let k in GAME_CONFIG.heroStops) {
         if(k==='tree') {
@@ -437,7 +412,14 @@
   }
 
   function initSnow(){ const cont = document.getElementById('snow-canvas'); setInterval(() => { const f = document.createElement('div'); f.className='flake'; f.style.left = Math.random()*100+'vw'; f.style.width = f.style.height = (Math.random()*5+2)+'px'; f.style.animationDuration = (Math.random()*3+2)+'s'; cont.appendChild(f); setTimeout(()=>f.remove(), 5000); }, 200); }
-  function setMapStage(s){ document.getElementById('map').style.backgroundImage = `url('${GAME_CONFIG.images['map_stage_'+s]}')`; }
+  
+  function setMapStage(stageNum){ 
+      if (stageNum === 'final') {
+          document.getElementById('map').style.backgroundImage = `url('${GAME_CONFIG.images.map_final}')`;
+      } else {
+          document.getElementById('map').style.backgroundImage = `url('${GAME_CONFIG.images['map_'+stageNum]}')`; 
+      }
+  }
   
   function goToLetter() { document.getElementById('start-screen').style.opacity = 0; setTimeout(() => { document.getElementById('start-screen').style.display = 'none'; document.getElementById('letter-screen').style.display = 'flex'; }, 800); }
   function goToCharSelection() { document.getElementById('letter-screen').style.display='none'; document.getElementById('char-screen').style.display='flex'; }
@@ -479,10 +461,39 @@
               document.querySelector('.timer').innerText = m+":"+s; 
           }
       }, 1000); 
+      
+      activateCurrentLevel();
+  }
+  
+  function activateCurrentLevel() {
+      if (currentOrderIndex >= LEVEL_ORDER.length) {
+          document.getElementById('quest-text').innerText = "ВСЁ ГОТОВО! ИДИ К ЁЛКЕ 🎄";
+          document.getElementById('quest-text').style.color = "#00ff00";
+          return;
+      }
+      let lvlId = LEVEL_ORDER[currentOrderIndex];
+      let el = document.getElementById('z' + lvlId);
+      
+      if(el) {
+          el.style.display = 'block'; 
+          el.innerHTML = '<div class="target-glow"></div>';
+      }
+      
+      let name = LEVEL_NAMES[lvlId];
+      document.getElementById('quest-text').innerText = "ЦЕЛЬ: ОТКРЫТЬ ДОМИК " + name;
   }
 
   async function moveHeroTo(id) {
     if(isMoving) return;
+    
+    if (id !== '6' && id !== 'tree') {
+        let currentTarget = LEVEL_ORDER[currentOrderIndex];
+        if (parseInt(id) !== currentTarget && !done.has(parseInt(id))) {
+            showNote("Сначала нужно пройти текущее задание!");
+            return;
+        }
+    }
+
     const target = GAME_CONFIG.heroStops[id];
     if(!target) return;
     isMoving = true;
@@ -540,7 +551,6 @@
     if(type==='shelf') playShelf(r);
   }
 
-  // ИГРЫ
   function playCollector(r) {
     let deck = [...ASSETS.collector, ...ASSETS.collector, ...ASSETS.collector].slice(0,12).sort(()=>Math.random()-.5);
     let opened=[], found=0;
@@ -613,27 +623,22 @@
     if(currentLevelId==='6') return; 
     if(!done.has(parseInt(currentLevelId))) {
       done.add(parseInt(currentLevelId));
-      document.getElementById('z'+currentLevelId).classList.add('done');
+      let zone = document.getElementById('z'+currentLevelId);
       
-      const sp = document.querySelector(`#z${currentLevelId} .house-sprite`);
+      zone.innerHTML = '';
+      zone.classList.remove('active');
+      zone.classList.add('done');
       
-      const style = GAME_CONFIG.houseStyles[currentLevelId];
-      if(style) {
-          sp.style.width = style.width;
-          sp.style.height = style.height;
-          sp.style.top = style.top;
-          sp.style.left = style.left;
-      }
-      
-      let imgPath = GAME_CONFIG.images['h'+currentLevelId+'_done'];
-      sp.style.backgroundImage = `url('${imgPath}')`;
+      setMapStage(done.size);
       document.getElementById('score').innerText = done.size;
+      
+      currentOrderIndex++;
+      activateCurrentLevel();
     }
     if(done.size===5) {
       setTimeout(()=>{
-        setMapStage(2);
-        // ВОТ ЗДЕСЬ БЫЛА ОШИБКА. ТЕПЕРЬ СКРЫВАЕМ ТОЛЬКО ВЫПОЛНЕННЫЕ ДОМИКИ, НО ОСТАВЛЯЕМ #z6 (КАРУСЕЛЬ) И #z-main (ЕЛКУ)
-        document.querySelectorAll('.zone:not(#z-main):not(#z6)').forEach(e=>e.style.display='none');
+        document.querySelectorAll('.zone:not(#z-main)').forEach(e=>e.style.display='none');
+        document.getElementById('z-main').style.display = 'block'; 
         
         document.getElementById('modal').style.display='flex';
         document.getElementById('m-title').innerText="ГОТОВО!";
@@ -667,7 +672,7 @@
       isGameFinished = true; 
 
       document.getElementById('modal').style.display='none';
-      setMapStage(3);
+      setMapStage('final'); 
       document.getElementById('map').classList.add('lit');
       confetti({particleCount:500, spread:150, zIndex:9999});
       
@@ -682,7 +687,14 @@
   }
 
   function showFinalResult() {
-      let timeString = document.querySelector('.timer').innerText;
+      // ИСПРАВЛЕННАЯ ЛОГИКА: Считаем разницу (Текущее время - Время старта)
+      let now = Date.now();
+      let diffInSeconds = Math.floor((now - gameStartTime) / 1000); // Сколько секунд прошло
+
+      let m = Math.floor(diffInSeconds / 60).toString().padStart(2, '0');
+      let s = (diffInSeconds % 60).toString().padStart(2, '0');
+      let timeString = `${m}:${s}`; // Например: 02:30
+
       const mElem = document.getElementById('modal');
       mElem.style.display = 'flex';
       document.getElementById('m-title').innerText = "ТЫ БИЗНЕС-ГУРУ!";
@@ -708,16 +720,16 @@
 
   function shareResult(time) {
       const text = `Я спас ярмарку КМБ за ${time}! А ты сможешь быстрее? 🎄✨`;
-      if (navigator.share) {
-          navigator.share({ title: 'Новогодний Квест КМБ', text: text, url: window.location.href }).catch(console.error);
-      } else {
-          navigator.clipboard.writeText(text + " " + window.location.href);
-          alert("Результат скопирован! Отправь его друзьям.");
-      }
+      
+      // 👇👇👇 ВСТАВЬТЕ ССЫЛКУ СЮДА
+      const url = "t.me/KMBYearQuest_bot/kmbquest"; 
+      
+      const tgShareUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+      window.open(tgShareUrl, '_blank');
   }
 
   function closeModal(){ document.getElementById('modal').style.display='none'; }
-  function showNote(t){ const n=document.querySelector('.game-note'); n.innerText=t; n.classList.add('show'); setTimeout(()=>n.classList.remove('show'), 2000); }
+  function showNote(t){ const n=document.querySelector('.game-note'); n.innerText=t; n.classList.add('show'); setTimeout(()=>n.classList.remove('show'), 2500); }
 </script>
 
 </body>
