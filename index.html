@@ -180,26 +180,26 @@
     images: {
       bg_loading:   'img/loading.jpg',
       // Карты
-      map_0: 'img/map_0.png',
-      map_1: 'img/map_1.png',
-      map_2: 'img/map_2.png',
-      map_3: 'img/map_3.png',
-      map_4: 'img/map_4.png',
-      map_5: 'img/map_5.png',
-      map_final: 'img/tree_final_map.png',
+      map_0: 'img/map_0.jpg',
+      map_1: 'img/map_1.jpg',
+      map_2: 'img/map_2.jpg',
+      map_3: 'img/map_3.jpg',
+      map_4: 'img/map_4.jpg',
+      map_5: 'img/map_5.jpg',
+      map_final: 'img/tree_final_map.jpg',
 
-      letter_bg:    'img/letter_bg.png',
-      bubble_left:  'img/bubble_left.png',
-      bubble_right: 'img/bubble_right.png',
-      bg_toys:      'img/bg_toys.png',
-      bg_admin:     'img/bg_admin.png',
-      bg_bank:      'img/bg_bank.png',
-      bg_wine:      'img/bg_wine.png',
-      bg_shelf:     'img/bg_shelf.png',
-      bg_fortune:   'img/bg_fortune.png',
-      card_back:    'img/card_back.png', 
-      shelf_bg:     'img/shelf_bg.png',   
-      tree_final:   'img/tree_final.png',
+      letter_bg:    'img/letter_bg.jpg',
+      bubble_left:  'img/bubble_left.jpg',
+      bubble_right: 'img/bubble_right.jpg',
+      bg_toys:      'img/bg_toys.jpg',
+      bg_admin:     'img/bg_admin.jpg',
+      bg_bank:      'img/bg_bank.jpg',
+      bg_wine:      'img/bg_wine.jpg',
+      bg_shelf:     'img/bg_shelf.jpg',
+      bg_fortune:   'img/bg_fortune.jpg',
+      card_back:    'img/card_back.jpg', 
+      shelf_bg:     'img/shelf_bg.jpg',   
+      tree_final:   'img/tree_final.jpg',
       mayor:        'img/avatar/avatar-mayor.png'
     },
     characters: {
@@ -229,9 +229,9 @@
   };
 
   const ASSETS = {
-    collector: [ 'img/toy1.png', 'img/toy2.png', 'img/toy3.png', 'img/toy4.png', 'img/toy5.png' ],
-    match3: [ {id:'wine', img:'img/wine.png'}, {id:'orange', img:'img/orange.png'}, {id:'cinnamon', img:'img/cinnamon.png'}, {id:'clove', img:'img/clove.png'} ],
-    shelf: [ 'img/shelf_item1.png', 'img/shelf_item2.png', 'img/shelf_item3.png', 'img/shelf_item4.png', 'img/shelf_item5.png', 'img/shelf_item6.png', 'img/shelf_item7.png', 'img/shelf_item8.png', 'img/shelf_item9.png' ] 
+    collector: [ 'img/toy-1.jpg', 'img/toy-2.jpg', 'img/toy-4.jpg', 'img/toy-5.jpg' ],
+    match3: [ {id:'wine', img:'img/wine.jpg'}, {id:'orange', img:'img/orange.jpg'}, {id:'cinnamon', img:'img/cinnamon.jpg'}, {id:'clove', img:'img/clove.jpg'} ],
+    shelf: [ 'img/shelf_item1.jpg', 'img/shelf_item2.jpg', 'img/shelf_item3.jpg', 'img/shelf_item4.jpg', 'img/shelf_item5.jpg', 'img/shelf_item6.jpg', 'img/shelf_item7.jpg', 'img/shelf_item8.jpg', 'img/shelf_item9.jpg' ] 
   };
 </script>
 
@@ -612,7 +612,7 @@
     render();
   }
 
-  function openFortune() { const FORTUNES = ["Конкуренты уйдут в декрет!", "Налоговая забудет твой номер.", "Твой стартап купит Илон Маск.", "Откроешь филиал на Бали.", "Клиенты будут платить вперед!", "Найдешь клад в бухгалтерии.", "Твой бренд станет легендой.", "Вся команда выйдет вовремя!", "Инвестор найдется сам.", "Прибыль вырастет в 10 раз!"]; let txt = FORTUNES[Math.floor(Math.random()*FORTUNES.length)]; document.getElementById('game-container').innerHTML = `<div class="fortune-box">${txt}</div><br><button class="btn-check" onclick="finishLvl()">СПАСИБО!</button>`; }
+  function openFortune() { const FORTUNES = ["Конкуренты уйдут в декрет!", "Налоговая забудет твой номер.", "Твой стартап купит Герман Греф.", "Откроешь филиал на Бали.", "Клиенты будут платить вперед!", "Найдешь клад в бухгалтерии.", "Твой бренд станет легендой.", "Вся команда выйдет вовремя!", "Инвестор найдется сам.", "Прибыль вырастет в 10 раз!"]; let txt = FORTUNES[Math.floor(Math.random()*FORTUNES.length)]; document.getElementById('game-container').innerHTML = `<div class="fortune-box">${txt}</div><br><button class="btn-check" onclick="finishLvl()">СПАСИБО!</button>`; }
 
   const WIN_DATA = { 'collector': { title: "СКЛАД ГОТОВ! 🧸", text: "Порядок наведен! Теперь ни одна игрушка не потеряется, и дети получат подарки вовремя. Лавка игрушек открыта!" }, 'quiz': { title: "ТЫ — ЛИДЕР! 🎩", text: "Кризис миновал! Администрация работает как часы. Ты блестяще разрулил все проблемы." }, 'cfo': { title: "БЮДЖЕТ СПАСЕН! 💰", text: "Ты финансовый гений! Счета оплачены, лишнее не потрачено. Казначейство в восторге." }, 'shelf': { title: "ВИТРИНА ИДЕАЛЬНА! 🥖", text: "Мастерская выкладка! Пекарня готова к наплыву гостей, все выглядит невероятно аппетитно." }, 'match3': { title: "УРА! ЛАВКА ОТКРЫТА! 🍷", text: `Благодаря тебе аромат специй снова манит гостей. Ты настоящий мастер уюта!<br><br><b>Твой бонус — фирменный рецепт:</b><br><br>🍒 1л Вишневого сока<br>🍊 1 Апельсин (кружочками)<br>🪵 1 палочка Корицы, 3 гвоздики<br>🍯 Немного мёда и имбиря<br><br><i>Нагреть, не доводя до кипения. Дать настояться 10 мин.</i>` } };
   function showWin(type) { const d = WIN_DATA[type]; const ov = document.getElementById('win-overlay'); ov.style.display='flex'; confetti({particleCount:150, zIndex:3000}); document.getElementById('win-content').innerHTML = `<div class="win-icon">🎉</div><div class="win-text">${d.title}</div><div style="color:#ccc; margin-bottom:20px; text-align:left; font-size:16px; line-height:1.4">${d.text}</div><button class="btn-check" onclick="finishLvl()">ОТЛИЧНО</button>`; }
